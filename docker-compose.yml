@@ -1,0 +1,23 @@
+services:
+  server:
+    build: ./server
+    ports:
+      - "44542:44542"
+    networks:
+      - app-network
+    environment:
+      PORT: 44542
+
+  client:
+    build: ./client
+    networks:
+      - app-network
+    deploy:
+      replicas: 3
+    environment:
+      ADDR: server:44542
+
+networks:
+  app-network:
+    driver: bridge
+
